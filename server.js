@@ -3,21 +3,18 @@ module.exports=althea=>{
     althea.addPagemodule('/github',pagemodule)
 }
 function pagemodule(env){
-    if(
-        env.request.headers.origin&&
-        env.request.headers.origin!=env.envVars.allowedOrigin
-    )
+    if(!env.althea.allowOrigin(env.envVars,env.request.headers.origin))
         return 403
     if(env.request.method=='GET')
         return get(env)
-    env.headers['allow']='GET'
+    env.headers.allow='GET'
     return{
         status:405,
         headers:env.headers,
     }
 }
 function get(env){
-    env.headers['location']=
+    env.headers.location=
         'https://github.com/anliting'
     return{
         status:303,
