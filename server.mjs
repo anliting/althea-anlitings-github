@@ -1,7 +1,3 @@
-module.exports=function(althea){
-    althea.addPagemodule('/gh',pagemodule)
-    althea.addPagemodule('/github',pagemodule)
-}
 function pagemodule(env){
     if(!env.althea.allowOrigin(env.envVars,env.request.headers.origin))
         return 403
@@ -14,11 +10,13 @@ function pagemodule(env){
     }
 }
 function get(env){
-    env.headers.location=
-        'https://github.com/anliting'
+    env.headers.location='https://github.com/anliting'
     return{
         status:303,
         headers:env.headers,
     }
 }
-
+export default althea=>{
+    althea.addPagemodule('/gh',pagemodule)
+    althea.addPagemodule('/github',pagemodule)
+}
