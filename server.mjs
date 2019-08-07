@@ -16,7 +16,15 @@ function get(env){
         headers:env.headers,
     }
 }
-export default althea=>{
+function Plugin(althea){
+    this._althea=althea
     althea.addPagemodule('/gh',pagemodule)
     althea.addPagemodule('/github',pagemodule)
 }
+Plugin.prototype.end=function(){
+    this._althea.cutPagemodule('/gh')
+    this._althea.cutPagemodule('/github')
+}
+Plugin.prototype.shutdownEnd=function(){
+}
+export default Plugin
